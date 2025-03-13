@@ -1,0 +1,25 @@
+{
+  "name": "@topfullstack/mcp-feishu-bot",
+  "version": "1.0.0",
+  "module": "index.ts",
+  "type": "module",
+  "private": false,
+  "bin": {
+    "mcp-feishu-bot": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "dev": "bun run --hot index.ts",
+    "debug": "bun --inspect-wait run index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.2"
+  }
+}
