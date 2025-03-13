@@ -1,8 +1,6 @@
 {
-  "name": "@topfullstack/mcp-feishu-bot",
-  "description": "Feishu bot MCP Server",
-  "homepage": "https://github.com/wxs77577/tfs/tree/main/packages/mcp-feishu-bot",
-  "version": "0.1.5",
+  "name": "@topfullstack/mcp-feishu-table",
+  "version": "0.1.4",
   "module": "index.ts",
   "type": "module",
   "author": "Johnny",
@@ -18,12 +16,17 @@
     "dev": "bun run --hot .",
     "debug": "bun --inspect-wait run ."
   },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
   "dependencies": {
+    "@lark-base-open/node-sdk": "^1.0.1",
     "@modelcontextprotocol/sdk": "^1.7.0",
     "dotenv": "^16.4.7",
+    "fuse.js": "^7.1.0",
     "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.2"
   }
 }

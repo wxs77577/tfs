@@ -11,5 +11,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@lark-base-open/node-sdk": "^1.0.1"
   }
 }
