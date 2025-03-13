@@ -1,18 +1,17 @@
 {
   "name": "tfs",
-  "module": "index.ts",
   "type": "module",
-  "private": true,
+  "module": "index.ts",
+  "author": "Johnny",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wxs77577/tfs.git"
+  },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@lark-base-open/node-sdk": "^1.0.1"
   }
 }
