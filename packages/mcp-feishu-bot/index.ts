@@ -1,10 +1,7 @@
 #!/usr/bin/env node
-import 'dotenv/config'
-import {
-  McpServer,
-  ResourceTemplate,
-} from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import "dotenv/config";
 import { z } from "zod";
 
 // Get Feishu bot webhook URL from environment variable
@@ -14,40 +11,44 @@ if (!FEISHU_BOT_URL) {
 }
 
 // Create an MCP server
+const version = require("./package.json").version;
 const server = new McpServer({
   name: "Feishu Bot",
-  version: "1.0.0",
+  version,
 });
 
 // Add a call tool to send message to Feishu bot
-server.tool("send_feishu_message", { message: z.string() }, async ({ message }) => {
-  try {
-    const response = await fetch(FEISHU_BOT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        msg_type: "text",
-        content: { text: message },
-      }),
-    });
+server.tool(
+  "send_feishu_message",
+  "通过飞书机器人发送消息",
+  { text: z.string() },
+  async ({ text }) => {
+    try {
+      const response = await fetch(FEISHU_BOT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          msg_type: "text",
+          content: { text: text },
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`Failed to send message: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Failed to send message: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      return {
+        content: [{ type: "text", text: JSON.stringify(result) }],
+      };
+    } catch (error) {
+      throw new Error(`Failed to send message: ${(error as Error).message}`);
     }
-
-    const result = await response.json();
-    return {
-      content: [
-        { type: "text", text: `Message sent successfully: ${message}` },
-      ],
-    };
-  } catch (error) {
-    throw new Error(`Failed to send message: ${(error as Error).message}`);
   }
-});
+);
 
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
-await server.connect(transport);
+server.connect(transport);

@@ -1,0 +1,12 @@
+.vscode/
+.env
+.env.*
+node_modules/
+tsconfig.json
+*.log
+.DS_Store
+.git
+.gitignore
+*
+!dist/
+!dist/**/*

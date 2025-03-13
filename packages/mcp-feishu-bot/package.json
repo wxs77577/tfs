@@ -1,21 +1,29 @@
 {
   "name": "@topfullstack/mcp-feishu-bot",
-  "version": "1.0.0",
+  "version": "0.1.5",
   "module": "index.ts",
   "type": "module",
   "private": false,
-  "bin": {
-    "mcp-feishu-bot": "./dist/index.js"
+  "author": "Johnny",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/topfullstack/tfs.git"
   },
+  "homepage": "https://github.com/topfullstack/tfs/tree/main/packages/mcp-feishu-bot",
+  "bin": {
+    "mcp-feishu-bot": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
+    "build": "bun build --outdir dist index.ts --minify --target=node",
+    "prepublishOnly": "npm version patch && npm run build",
     "dev": "bun run --hot index.ts",
     "debug": "bun --inspect-wait run index.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "typescript": "^5"
+    "@types/bun": "latest"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.7.0",
